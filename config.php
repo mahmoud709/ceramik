@@ -1,0 +1,2 @@
+<?php
+const SETUP_KEY = "774d9900ab945fa1ac0c6b911217475638e4e766cdd76699";
