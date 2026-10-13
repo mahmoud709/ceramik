@@ -419,3 +419,7 @@ main p,.section-top>p{font-size:16px}
 footer{padding-block:35px}footer>p{font-size:15px}
 }
 @media(min-width:701px) and (max-width:1100px){header>nav{top:60px}.hero-content{padding-top:65px}}
+
+/* Vector arrows inherit the surrounding color on every device. */
+.site-arrow{display:inline-block;width:1.1em;height:1.1em;flex-shrink:0;vertical-align:-.18em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.round-arrow .site-arrow,.slide-controls .site-arrow,.media-prev .site-arrow,.media-next .site-arrow{width:19px;height:19px}
