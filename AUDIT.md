@@ -1,9 +1,3 @@
-# فحص روابط الموقع
+# English website validation
 
-تم فحص 20 مسارًا عامًا و258 رابطًا ونموذجًا على خادم HTML فقط.
-
-لا توجد روابط تنقل للزوار إلى ملفات PHP، ولم يبدأ أي تنزيل أثناء اختبار التنقل والأزرار والنوافذ.
-
-تم اختبار عرضي 390 و1440 بكسل، ونوافذ التفاصيل، وزر طلب عرض السعر، وبقاء النموذج داخل صفحة HTML عند عدم وجود خدمة الحفظ.
-
-PHP مستمر كواجهة خلفية للدخول والحفظ وإرسال الطلبات والصور الخاصة. الحفظ يحتاج PHP على الاستضافة.
+Checked 20 public routes and 258 navigation links and forms at 390px and 1440px. All pages use English and left-to-right layouts. No horizontal overflow, runtime errors or unintended downloads. Detail dialogs and quote navigation passed. Static hosting cannot save enquiries; PHP hosting is required.

@@ -1,108 +1,59 @@
-﻿
-# سيرا ميك — دليل الرفع والتحديث
+# Cera-Mik — Installation and website management
 
-صفحات الزوار كلها HTML وCSS وJavaScript: الرئيسية والخدمات والمشاريع وكتالوج الخامات والأسئلة الشائعة وطلب عرض السعر. PHP يعمل في الخلفية للدخول والحفظ واستقبال الطلبات، مع ملفات محمية ودون قاعدة بيانات.
+The public website is built with HTML, CSS and JavaScript. PHP handles dashboard authentication, content saving and customer enquiries. No database is required. The website and dashboard are in English, with left-to-right layouts.
 
-## تركيب جديد على cPanel
-1. احتفظ بنسخة احتياطية من أي موقع موجود.
-2. ارفع محتويات Cera-Mik-cPanel.zip إلى public_html وفك الضغط داخله. يجب أن يكون index.html مباشرة داخله.
-3. من MultiPHP Manager اختر PHP 8.2 أو أحدث، وتأكد من تفعيل fileinfo وHTTPS.
-4. من إعدادات PHP اضبط upload_max_filesize إلى 6M على الأقل وpost_max_size إلى 8M أو أكثر. الموقع يحد طلب الرفع الإجمالي بـ8 ملايين بايت.
-5. افتح config.php من File Manager وانسخ قيمة SETUP_KEY، ثم افتح /admin/ واستخدم المفتاح لإنشاء كلمة مرور قوية لا تقل عن 12 حرفًا. التفعيل مرة واحدة فقط.
-6. أضف أرقام التواصل والبريد، وعدّل الخدمات والمشاريع، ثم احفظ.
-7. أرسل طلب عرض سعر تجريبي من /quote.html وتأكد أنه يظهر في اللوحة مع الصور وحالة «جديد».
-8. تأكد أن الوصول المباشر إلى /config.php و/data/content.php و/includes/defaults.php ممنوع. ملفات .htaccess لازمة لحماية البيانات على Apache في cPanel.
-9. data وdata/uploads وassets/images تحتاج صلاحيات كتابة لحساب PHP. ابدأ بـ755 للمجلدات و644 للملفات، وراجع ملكية الملفات مع الاستضافة إذا لزم؛ لا تستخدم 777.
+## Install on cPanel
 
-## تحديث النسخة السابقة دون فقد البيانات
-1. خذ نسخة احتياطية من الملفات، خاصة data وconfig.php وassets/images.
-2. استبدل index.html وservices.html وprojects.html وcatalog.html وfaq.html وquote.html ومجلدي admin وapi وملفات الشيفرة داخل assets، وارفع مجلد includes الجديد كاملًا.
-3. احتفظ بملف config.php الحالي وبكل ملفات data الحالية. لا تستبدل data/content.php بالمحتوى التجريبي الموجود في ملف ZIP.
-4. احتفظ بصورك الحالية داخل assets/images. أضف الملفات الجديدة فقط عند الحاجة، ومنها favicon.svg.
-5. أنشئ data/uploads إذا لم يكن موجودًا، وارفع ملف .htaccess الموجود بداخله. احتفظ بملف data/.htaccess للحماية.
-6. افتح لوحة التحكم بنفس كلمة المرور. يتم دمج حقول النسخة السابقة مع الخدمات المبدئية الجديدة تلقائيًا؛ أول حفظ من اللوحة يثبت البنية الجديدة.
-7. راجع الخدمات المبدئية قبل نشرها. معرفات روابط المشاريع القديمة تُضاف تلقائيًا وتثبت عند الحفظ.
-8. إذا كنت تستخدم الموقع داخل مجلد فرعي، تعمل الروابط النسبية دون تعديل الدومين.
-9. جرّب الموقع وطلب عرض السعر بعد التحديث. حدّث الصفحة تحديثًا كاملًا إذا كان المتصفح يحتفظ بملف CSS قديم.
+1. Back up any existing website.
+2. Upload and extract Cera-Mik-cPanel.zip inside public_html. Place index.html directly in that directory. Include the hidden .htaccess files.
+3. Enable PHP 8.2 or newer and HTTPS. Enable the fileinfo PHP extension for dashboard image uploads.
+4. Set upload_max_filesize to at least 6M and post_max_size to at least 8M.
+5. Open config.php in cPanel File Manager and copy SETUP_KEY. Visit https://your-domain.com/admin/ and use the key to create a password of at least 12 characters. Setup is available once; subsequent visits require your password.
+6. Add confirmed contact details and review the website content. Click Save all changes after editing.
+7. Submit a test quote from quote.html and check that it appears in the dashboard. Quote requests do not include image attachments.
+8. Confirm that direct access to config.php, data/content.php and includes/defaults.php is blocked. Keep all supplied .htaccess files.
+9. PHP needs write access to data, data/uploads and assets/images. Start with directory permissions 755 and file permissions 644; check ownership with your host if necessary. Do not use 777.
 
-## الصفحات
-- /index.html: الرئيسية، ونبذة الشركة، والخدمات والمشاريع المختصرة، وطلب التواصل السريع.
-- /services.html: الخدمات المنشورة.
-- /services.html?id=porcelain: مثال لصفحة خدمة، تضم الوصف والنقاط والخطوات.
-- /projects.html: معرض المشاريع مع التصنيف والبحث.
-- /projects.html?id=project-1: مثال لصفحة مشروع ومعرض صور.
-- /quote.html: طلب عرض سعر متكامل. الرابط يدعم اختيار الخدمة مسبقًا.
-- /admin/: إدارة الموقع والطلبات.
+## Update an existing installation
 
-## إدارة الخدمات والمشاريع
-يمكن إضافة وتعديل وحذف وترتيب الخدمات والمشاريع. الخدمة لها صورة ووصف تفصيلي ونقاط وخطوات عمل. المشروع له صورة رئيسية وحتى 20 صورة إضافية ونطاق عمل وموقع ومساحة وسنة اختيارية.
-علامة «نشر» تتحكم في الظهور للزوار. يمكنك معاينة المحتوى غير المنشور بعد حفظه وأثناء تسجيل الدخول فقط؛ روابط المعاينة ليست روابط مشاركة عامة.
-معرفات الصفحات ثابتة للحفاظ على الروابط. الصور المرفوعة لا تُنشر داخل المحتوى حتى تضغط حفظ التعديلات.
-عند حذف مشروع، لا تُحذف صور ملفاته تلقائيًا؛ احذف الصور غير المستخدمة فقط بعد أخذ نسخة احتياطية والتأكد من عدم استخدامها في مواضع أخرى.
+Back up data, config.php and assets/images before uploading updates. Preserve your existing config.php, authentication, enquiries and uploaded images. Replace the public HTML pages, admin and api directories, includes, and the JavaScript/CSS files in assets. Refresh the browser cache after uploading.
 
-## طلبات عرض السعر
-العميل يحدد الخدمة ونوع المكان والمدينة والمساحة التقريبية وموعد البدء والتفاصيل، بدون إرفاق صور. يحصل على رقم مرجع بعد الاستلام.
-الطلبات محفوظة في اللوحة؛ لا يوجد تسعير تلقائي أو إرسال بريد تلقائي.
-اللوحة تدعم البحث والتصفية، حالات «جديد، جارٍ التواصل، مكتمل»، وملاحظات داخلية، وعرض صور المكان بعد تسجيل الدخول.
-صور العملاء محفوظة داخل data/uploads ولا يوجد لها رابط عام. وصول الصور يتم من واجهة API بعد التحقق من دخول المسؤول.
-طلب التواصل البسيط الموجود في الرئيسية يستمر في العمل، ويظهر ضمن الطلبات أيضًا.
+The included data/content.php contains the translated English content. If you have not customised your content, back up your existing data/content.php and replace that file with this version. If you have customised services, projects or other content, keep your existing data/content.php and translate those entries through the dashboard. Never replace the entire live data directory: that would discard existing enquiries and login information.
 
-## المحتوى المبدئي
-الصور نماذج إلهامية وليست توثيقًا لأعمال الشركة. عند إضافة مشروع فعلي، ألغِ علامة «نموذج إلهامي» وأضف بياناته الحقيقية.
-لا توجد عناوين فروع أو أرقام هاتف أو إنجازات مخترعة. معلومات الفروع في دبي ومصر مبنية على وصف العميل.
-نبذة الشركة وبيانات التواصل والخدمات والمشاريع قابلة للتعديل من اللوحة. صور المقدمة ونصوص خطوات العمل في الرئيسية تُعدل من index.html.
+## Pages
 
-## النسخ الاحتياطية
-احتفظ بنسخ دورية من data وassets/images وconfig.php. بيانات الدخول والطلبات والتواصل وصور العملاء داخل هذه الملفات؛ لا تشارك النسخ الاحتياطية علنًا.
-الملف المضغوط للتسليم لا يحتوي بيانات دخول فعلية أو طلبات اختبار.
+- index.html: homepage, company overview, featured services, projects, materials and contact form.
+- services.html: service listing and service detail pages using ?id=.
+- projects.html: project gallery, search and project detail pages using ?id=.
+- catalog.html: material filters, saved selections, comparisons and material detail pages using ?id=.
+- faq.html: frequently asked questions.
+- quote.html: quote request form, with optional project, service or material preselection.
+- admin/: dashboard and enquiry management.
 
-## معاينة محلية
-تصفح صفحات الزوار وفتح التفاصيل والنموذج يعمل على خادم HTML فقط. الدخول والحفظ وإرسال الطلبات يحتاج PHP. استخدم php -S 127.0.0.1:8080 ثم افتح http://127.0.0.1:8080.
-خادم PHP المدمج مخصص للمعاينة ولا يطبق .htaccess؛ حماية المجلدات في الاستضافة تعتمد على Apache وإعداداته. تحقق منها بعد الرفع.
-الخطوط من Google Fonts مع خط بديل، والصور داخل ملفات الموقع.
+## Dashboard
 
-## مصادر صور العرض
-- https://images.unsplash.com/photo-1600210492486-724fe5c67fb0
-- https://images.unsplash.com/photo-1620626011761-996317b8d101
-- https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7
+Manage homepage headline, introductory description, company overview, phone, email and WhatsApp. Add, edit, reorder, publish or hide services, projects, materials and FAQs. Upload service, project and material images. Add project gallery images and material specifications. Manage enquiry status and internal notes, and change your password.
 
-استبدل صور العرض بصور أعمال الشركة التي تملك حق استخدامها.
+Upload images first, then click Save all changes to save and publish your edits. Deleting a project does not automatically delete its image files. Remove unused files only after checking that they are not referenced elsewhere and taking a backup.
 
-## التحقق قبل التسليم
-تم التحقق محليًا من:
-- صياغة ملفات PHP وJavaScript.
-- عرض الصفحات الجديدة على عرضي 390 و1440 بكسل دون خروج أفقي.
-- التصفية والبحث وعرض الحالة الفارغة وتكبير صور المشاريع.
-- حفظ المحتوى وإدارة الخدمات والمشاريع وتحديث حالة الطلب من اللوحة.
-- استقبال عرض سعر بدون مرفقات، وحفظ الحقول وإصدار رقم مرجع.
-- رفض الملفات المزيفة وعدد الصور الزائد وعدم الموافقة على استخدام البيانات.
-- منع الوصول غير المسجل إلى بيانات الإدارة وصور العملاء.
-- إخفاء المسودات عن الزوار وإتاحتها في المعاينة للمسؤول.
-- عرض رسالة واضحة عند طلب محتوى غير متاح، وحماية النصوص عند عرضها.
+Layout, typography, animation settings, homepage slideshow images and some fixed homepage copy are maintained in the HTML/CSS/JavaScript files.
 
-لم يتم رفع الموقع على استضافة cPanel الفعلية؛ تحقق من صلاحيات المجلدات وإعدادات PHP والحماية بعد الرفع.
+## Enquiries and hosting
 
+Quote requests collect contact information, project location, space type, approximate area, preferred start date and project details. The customer receives a reference after successful submission. The dashboard supports search, status filters and internal notes. Historical private attachments remain accessible only to an authenticated administrator.
 
-## عرض الصور والطلب
-صور الخدمات والمشاريع تفتح نافذة تفاصيل داخل الصفحة. معرض صور النافذة يدعم الأسهم والصور المصغرة ولوحة المفاتيح والسحب على الصورة. زر الإغلاق ثابت، ويغلق الضغط على Escape النافذة أيضًا.
-زر «اطلب مساحة مشابهة» يفتح quote.html مع تحديد المشروع. عرض النموذج يعمل كواجهة HTML حتى في المعاينة؛ حفظ وإرسال الطلب يحتاج خادم PHP على الاستضافة.
+GitHub Pages, file previews and HTML-only servers can display the public pages, but cannot run PHP. Dashboard sign-in, content saving and enquiry submission require PHP hosting such as cPanel. A static preview must not be mistaken for a working enquiry service.
 
-## فحص روابط التنقل
-تم فحص 18 مسارًا للزوار و197 رابطًا ونموذجًا على خادم HTML فقط. لا توجد روابط للزوار تفتح ملفات PHP ولم يبدأ أي تنزيل. صفحات الخدمات والمشاريع تحدث محتواها تلقائيًا من واجهة الحفظ عند تشغيل PHP. المعاينة الخاصة في اللوحة تستخدم صفحات HTML وتحتاج جلسة دخول للمحتوى غير المنشور. صور العملاء تفتح داخل نافذة في اللوحة دون الانتقال لرابط PHP.
-تم إضافة إصدار لملفات CSS وJavaScript حتى يحمل المتصفح الملفات الجديدة بعد التحديث.
+## Content and images
 
-## كتالوج الخامات والمفضلة والمقارنة
-- صفحة catalog.html تدعم البحث والتصفية حسب النوع واللون والتشطيب والمقاس والاستخدام، ونافذة تفاصيل للخامة.
-- يمكن حفظ المفضلة على نفس المتصفح والجهاز. لا توجد حسابات عملاء أو مزامنة للمفضلة بين الأجهزة.
-- المقارنة تشمل حتى 3 خامات، مع جدول للمواصفات وروابط طلب كل خامة.
-- رابط الخامة المستقل catalog.html?id=material-01، والمعاينة الخاصة تعمل للمسؤول بعد الحفظ.
-- عند اختيار خامة، ينتقل العميل إلى quote.html?material=... ويُحدد نوع الخدمة مبدئيًا؛ الطلب يحفظ معرف واسم وكود الخامة وقت الإرسال حتى إذا تغير الكتالوج لاحقًا.
-- لوحة التحكم تدعم إضافة وحذف وترتيب الخامات، الصور والمواصفات والاستخدامات، علامات الصورة الاسترشادية والنشر.
-- نماذج الكتالوج الحالية استرشادية وليست أصناف مخزون مؤكدة. لا توجد أسعار أو مقاسات أو مواصفات فنية مخترعة؛ أضف البيانات والصور الفعلية قبل إلغاء علامة التصور.
+Branches are in Dubai and Egypt. No unconfirmed addresses, contact details, completed-project claims or stock information have been added. Images marked Inspiration or Material concept are illustrative, not documented company projects or available product samples. Confirm material sizes, specifications, availability and costs before any agreement.
 
-## الأسئلة الشائعة وواتساب
-الأسئلة منشورة في faq.html ومعاينة مختصرة في الرئيسية، ويمكن تعديلها وترتيبها وإخفاؤها من لوحة التحكم.
-زر واتساب الثابت يظهر بعد إضافة رقم صالح بكود الدولة في اللوحة؛ لا يظهر رقم تجريبي عند غياب بيانات التواصل.
+Saved materials are stored in the visitor's browser. Up to three materials can be compared. The floating WhatsApp link appears only after a valid number with country code is configured.
 
-## التحقق من المزايا الجديدة
-تم اختبار التصفية المركبة، حفظ المفضلة بعد إعادة تحميل الصفحة، الحد الأقصى للمقارنة وجدول المواصفات، تفاصيل الخامة ونقل اختيارها للنموذج، حفظ الاختيار داخل الطلب، إدارة الخامات والأسئلة، المعاينة الخاصة، زر واتساب، والعرض على الموبايل والكمبيوتر.
+Demo images are stored locally and were downloaded from Unsplash:
+
+- Living space: https://images.unsplash.com/photo-1600210492486-724fe5c67fb0
+- Bathroom: https://images.unsplash.com/photo-1620626011761-996317b8d101
+- Pool: https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7
+
+Replace demo images with company-owned project photographs when available. Manrope is loaded through Google Fonts, with Arial as a fallback. Keep regular private backups of data, assets/images and config.php.
